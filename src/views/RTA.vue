@@ -4,11 +4,16 @@
       <v-col>
         <h1>自炊RTA スタート！！</h1>
         <br/>
-        {{checkHours | zeroPadding}}：{{checkMinutes | zeroPadding}}：{{checkSeconds | zeroPadding}}：{{checkMiliSeconds | showMiliseconds}}
+        <h2>ストップウォッチ</h2>
+        <h1>
+        {{ hours }} :
+        {{ minutes | zeroPad }} :
+        {{ seconds | zeroPad }} :
+        {{ milliSeconds | zeroPad(3) }}</h1>
         <br/>
-        <v-btn @click="start">スタート</v-btn>
-        <v-btn @click="stop">ストップ</v-btn>
-        <v-btn @click="reset">リセット</v-btn>
+        <v-btn @click="startTimer" class="button">スタート</v-btn>
+        <v-btn @click="stopTimer" class="button">ストップ</v-btn>
+        <v-btn @click="clearAll" class="button">リセット</v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -16,72 +21,79 @@
 
 <script>
 export default {
-  date () {
+  data () {
     return {
-      animationId: 0,
-      hours: 0,
-      minutes: 0,
-      second: 0,
-      milisecond: 0,
-      startTime: 0,
-      endTime: 0,
+      animateFrame: 0,
+      nowTime: 0,
       diffTime: 0,
-      flag: false
-    }
-  },
-  filters: {
-    zeroPadding (value) {
-      return value.toString().padStart(2, 0)
-    },
-    showMiliseconds (value) {
-      return value.toString().padStart(3, 0)
+      startTime: 0,
+      isRunning: false
     }
   },
   methods: {
-    setStartTime (time) {
-      this.startTime = performance.now() - time
+    // 現在時刻から引数に渡した数値を startTime に代入
+    setSubtractStartTime: function (time) {
+      var time1 = typeof time !== 'undefined' ? time : 0
+      this.startTime = Math.floor(performance.now() - time1)
     },
-    start () {
-      if (this.flag) {
-        return false
-      }
-      // eslint-disable-next-line camelcase
-      const vm_data = this
-      this.flag = true
-      this.setStartTime(vm_data.diffTime);
-      (function progress () {
-        vm_data.endTime = performance.now()
-        vm_data.diffTime = (vm_data.endTime - vm_data.startTime)
-        vm_data.second = Math.floor(vm_data.diffTime / 1000)
-        vm_data.milisecond = Math.floor(vm_data.diffTime % 1000)
-        vm_data.animationId = window.requestAnimationFrame(progress)
+    // タイマーをスタートさせる
+    startTimer: function () {
+      // loop()内で this の値が変更されるので退避
+      var vm = this
+      vm.setSubtractStartTime(vm.diffTime);
+      // ループ処理
+      (function loop () {
+        vm.nowTime = Math.floor(performance.now())
+        vm.diffTime = vm.nowTime - vm.startTime
+        vm.animateFrame = requestAnimationFrame(loop)
       }())
+      vm.isRunning = true
     },
-    stop () {
-      this.flag = false
-      window.cancelAnimationFrame(this.animationId)
+    // タイマーを停止させる
+    stopTimer: function () {
+      this.isRunning = false
+      cancelAnimationFrame(this.animateFrame)
     },
-    reset () {
-      if (this.flag) {
-        return false
-      }
-      this.startTime = this.diffTime = 0
+    // 初期化
+    clearAll: function () {
+      this.startTime = 0
+      this.nowTime = 0
+      this.diffTime = 0
+      this.stopTimer()
+      this.animateFrame = 0
     }
   },
   computed: {
-    checkHours () {
-      console.log(this.second)
+    // 時間を計算
+    hours: function () {
       return Math.floor(this.diffTime / 1000 / 60 / 60)
     },
-    checkMinutes () {
+    // 分数を計算 (60分になったら0分に戻る)
+    minutes: function () {
       return Math.floor(this.diffTime / 1000 / 60) % 60
     },
-    checkSeconds () {
+    // 秒数を計算 (60秒になったら0秒に戻る)
+    seconds: function () {
       return Math.floor(this.diffTime / 1000) % 60
     },
-    checkMiliSeconds () {
+    // ミリ数を計算 (1000ミリ秒になったら0ミリ秒に戻る)
+    milliSeconds: function () {
       return Math.floor(this.diffTime % 1000)
+    }
+  },
+  filters: {
+    // ゼロ埋めフィルタ 引数に桁数を入力する
+    // ※ String.prototype.padStart() は IEじゃ使えない
+    zeroPad: function (value, num) {
+      var num1 = typeof num !== 'undefined' ? num : 2
+      return value.toString().padStart(num1, '0')
     }
   }
 }
 </script>
+
+<style scoped>
+.button {
+  margin: 5px;
+}
+</style>
