@@ -14,6 +14,8 @@
         <v-btn @click="startTimer" class="button">スタート</v-btn>
         <v-btn @click="stopTimer" class="button">ストップ</v-btn>
         <v-btn @click="clearAll" class="button">リセット</v-btn>
+        <br/>
+        <v-btn @click="complete" class="complete-btn">できあがり！</v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -61,6 +63,11 @@ export default {
       this.diffTime = 0
       this.stopTimer()
       this.animateFrame = 0
+    },
+    complete: function () {
+      if (this.isRunning === false) {
+        console.log('complete')
+      }
     }
   },
   computed: {
@@ -95,5 +102,8 @@ export default {
 <style scoped>
 .button {
   margin: 5px;
+}
+.complete-btn {
+  margin-top: 20px;
 }
 </style>
