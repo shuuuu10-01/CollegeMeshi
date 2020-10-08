@@ -16,14 +16,14 @@
         <v-btn @click="clearAll" class="button">リセット</v-btn>
         <br/>
         <v-btn @click="openDialog" class="complete-btn">できあがり！</v-btn>
-        <Dialog  ref="dlg"/>
+        <DialogCard  ref="dlg"/>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import Dialog from '@/components/DialogCard.vue'
+import DialogCard from '@/components/DialogCard.vue'
 export default {
   data () {
     return {
@@ -35,7 +35,7 @@ export default {
     }
   },
   components: {
-    Dialog
+    DialogCard
   },
   methods: {
     openDialog () {
@@ -51,21 +51,25 @@ export default {
     },
     // タイマーをスタートさせる
     startTimer: function () {
-      // loop()内で this の値が変更されるので退避
-      var vm = this
-      vm.setSubtractStartTime(vm.diffTime);
-      // ループ処理
-      (function loop () {
-        vm.nowTime = Math.floor(performance.now())
-        vm.diffTime = vm.nowTime - vm.startTime
-        vm.animateFrame = requestAnimationFrame(loop)
-      }())
-      vm.isRunning = true
+      if (this.isRunning === false) {
+        // loop()内で this の値が変更されるので退避
+        var vm = this
+        vm.setSubtractStartTime(vm.diffTime);
+        // ループ処理
+        (function loop () {
+          vm.nowTime = Math.floor(performance.now())
+          vm.diffTime = vm.nowTime - vm.startTime
+          vm.animateFrame = requestAnimationFrame(loop)
+        }())
+        vm.isRunning = true
+      }
     },
     // タイマーを停止させる
     stopTimer: function () {
-      this.isRunning = false
-      cancelAnimationFrame(this.animateFrame)
+      if (this.isRunning === true) {
+        this.isRunning = false
+        cancelAnimationFrame(this.animateFrame)
+      }
     },
     // 初期化
     clearAll: function () {
