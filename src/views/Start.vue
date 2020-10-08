@@ -1,5 +1,5 @@
 <template>
-  <v-container fill-height>
+  <v-container>
     <v-row>
       <v-col>
         <img alt="logo" src="../assets/logo.png" class="image">
