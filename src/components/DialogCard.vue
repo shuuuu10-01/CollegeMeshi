@@ -23,7 +23,8 @@
                   :items="['0〜10円', '11~30円', '31~100円', '101~200円','201~500円','今日は贅沢しちゃった！！']"
                   label="かかったお金"
                   required
-                ></v-select>
+              ></v-select>
+              <p>asdf</p>
               <v-btn @click="isDialog=false">OK</v-btn>
             </v-col>
           </v-row>
