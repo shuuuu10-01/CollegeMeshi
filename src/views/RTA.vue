@@ -16,25 +16,14 @@
         <v-btn @click="clearAll" class="button">リセット</v-btn>
         <br/>
         <v-btn @click="openDialog" class="complete-btn">できあがり！</v-btn>
-        <v-dialog v-model="dialog" max-width="400px">
-          <v-card>
-            <v-card-title>ダイアログタイトル</v-card-title>
-            <v-card-actions>
-              <v-row justify="center">
-                <v-col cols="4">
-                  <v-btn @click="dialog=false">OK</v-btn>
-                </v-col>
-              </v-row>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
+        <Dialog  ref="dlg"/>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-// import Dialog from '@/components/Dialog.vue'
+import Dialog from '@/components/DialogCard.vue'
 export default {
   data () {
     return {
@@ -42,18 +31,17 @@ export default {
       nowTime: 0,
       diffTime: 0,
       startTime: 0,
-      isRunning: false,
-      dialog: false
+      isRunning: false
     }
   },
-  // components: {
-  //   Dialog
-  // },
+  components: {
+    Dialog
+  },
   methods: {
     openDialog () {
       if (this.isRunning === false) {
-        this.dialog = true
-        console.log(this.dialog)
+        this.$refs.dlg.isDialog = !this.$refs.dlg.isDialog
+        console.log(this.$refs.dlg.isDialog)
       }
     },
     // 現在時刻から引数に渡した数値を startTime に代入
