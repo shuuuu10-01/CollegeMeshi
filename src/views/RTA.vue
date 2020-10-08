@@ -1,5 +1,5 @@
 <template>
-  <v-container fill-height>
+  <v-container>
     <v-row>
       <v-col>
         <h1>自炊RTA スタート！！</h1>
@@ -15,13 +15,26 @@
         <v-btn @click="stopTimer" class="button">ストップ</v-btn>
         <v-btn @click="clearAll" class="button">リセット</v-btn>
         <br/>
-        <v-btn @click="complete" class="complete-btn">できあがり！</v-btn>
+        <v-btn @click="openDialog" class="complete-btn">できあがり！</v-btn>
+        <v-dialog v-model="dialog" max-width="400px">
+          <v-card>
+            <v-card-title>ダイアログタイトル</v-card-title>
+            <v-card-actions>
+              <v-row justify="center">
+                <v-col cols="4">
+                  <v-btn @click="dialog=false">OK</v-btn>
+                </v-col>
+              </v-row>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+// import Dialog from '@/components/Dialog.vue'
 export default {
   data () {
     return {
@@ -29,10 +42,20 @@ export default {
       nowTime: 0,
       diffTime: 0,
       startTime: 0,
-      isRunning: false
+      isRunning: false,
+      dialog: false
     }
   },
+  // components: {
+  //   Dialog
+  // },
   methods: {
+    openDialog () {
+      if (this.isRunning === false) {
+        this.dialog = true
+        console.log(this.dialog)
+      }
+    },
     // 現在時刻から引数に渡した数値を startTime に代入
     setSubtractStartTime: function (time) {
       var time1 = typeof time !== 'undefined' ? time : 0
@@ -63,11 +86,6 @@ export default {
       this.diffTime = 0
       this.stopTimer()
       this.animateFrame = 0
-    },
-    complete: function () {
-      if (this.isRunning === false) {
-        console.log('complete')
-      }
     }
   },
   computed: {
