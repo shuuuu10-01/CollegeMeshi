@@ -9,7 +9,7 @@
         {{ hours }} :
         {{ minutes | zeroPad }} :
         {{ seconds | zeroPad }} :
-        {{ milliSeconds | zeroPad(3) }}</h1>
+        {{ miliSeconds | zeroPad(3) }}</h1>
         <br/>
         <v-btn @click="startTimer" class="button">スタート</v-btn>
         <v-btn @click="stopTimer" class="button">ストップ</v-btn>
@@ -31,7 +31,9 @@ export default {
       nowTime: 0,
       diffTime: 0,
       startTime: 0,
-      isRunning: false
+      timeup: '',
+      isRunning: false,
+      isStopping: false
     }
   },
   components: {
@@ -39,10 +41,27 @@ export default {
   },
   methods: {
     openDialog () {
-      if (this.isRunning === false) {
+      if (this.isStopping === true) {
+        this.setTime()
         this.$refs.dlg.isDialog = !this.$refs.dlg.isDialog
-        console.log(this.$refs.dlg.isDialog)
       }
+    },
+    setTime () {
+      this.timeup = ''
+      const hours = this.hours
+      const minutes = this.minutes
+      const seconds = this.seconds
+      const miliSeconds = this.miliSeconds
+      if (hours !== 0) {
+        this.timeup = String(hours) + '時間' + String(minutes) + '分' + String(seconds) + '秒' + String(miliSeconds)
+      } else if (minutes !== 0) {
+        this.timeup = String(minutes) + '分' + String(seconds) + '秒' + String(miliSeconds)
+      } else if (seconds !== 0) {
+        this.timeup = String(seconds) + '秒' + String(miliSeconds)
+      } else {
+        this.timeup = 'おそろしく速い手刀。オレでなきゃ見逃しちゃうね'
+      }
+      this.$refs.dlg.time = this.timeup
     },
     // 現在時刻から引数に渡した数値を startTime に代入
     setSubtractStartTime: function (time) {
@@ -52,6 +71,7 @@ export default {
     // タイマーをスタートさせる
     startTimer: function () {
       if (this.isRunning === false) {
+        this.isStopping = false
         // loop()内で this の値が変更されるので退避
         var vm = this
         vm.setSubtractStartTime(vm.diffTime);
@@ -68,6 +88,7 @@ export default {
     stopTimer: function () {
       if (this.isRunning === true) {
         this.isRunning = false
+        this.isStopping = true
         cancelAnimationFrame(this.animateFrame)
       }
     },
@@ -78,6 +99,7 @@ export default {
       this.diffTime = 0
       this.stopTimer()
       this.animateFrame = 0
+      this.isStopping = false
     }
   },
   computed: {
@@ -94,7 +116,7 @@ export default {
       return Math.floor(this.diffTime / 1000) % 60
     },
     // ミリ数を計算 (1000ミリ秒になったら0ミリ秒に戻る)
-    milliSeconds: function () {
+    miliSeconds: function () {
       return Math.floor(this.diffTime % 1000)
     }
   },

@@ -24,8 +24,14 @@
                 label="かかったお金"
                 required
             ></v-select>
-            <p>asdf</p>
-            <v-btn @click="isDialog=false">OK</v-btn>
+            <v-text-field
+              class="text-field"
+              label = "タイム"
+              v-model="time"
+              disabled
+              required
+            ></v-text-field>
+          <v-btn @click="isDialog=false">OK</v-btn>
           </v-col>
         </v-row>
       </v-card-actions>
@@ -40,6 +46,7 @@ export default {
       title: '',
       introduce: '',
       cost: '',
+      time: '',
       isDialog: false
     }
   }
