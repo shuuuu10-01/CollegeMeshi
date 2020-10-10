@@ -26,12 +26,15 @@
             ></v-select>
             <v-text-field
               class="text-field"
-              label = "タイム"
+              label="タイム"
               v-model="time"
               disabled
               required
             ></v-text-field>
-          <v-btn @click="isDialog=false">OK</v-btn>
+          </v-col>
+          <v-col cols='10'>
+          <v-btn @click="isDialog=false" class="btn">閉じる</v-btn>
+          <v-btn @click="isDialog=false" class="btn">いただきます</v-btn>
           </v-col>
         </v-row>
       </v-card-actions>
@@ -46,8 +49,25 @@ export default {
       title: '',
       introduce: '',
       cost: '',
-      time: '',
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+      miliSeconds: 0,
       isDialog: false
+    }
+  },
+  computed: {
+    // 時間を計算
+    time: function () {
+      if (this.hours !== 0) {
+        return String(this.hours) + '時間' + String(this.minutes) + '分' + String(this.seconds) + '秒' + String(this.miliSeconds)
+      } else if (this.minutes !== 0) {
+        return String(this.minutes) + '分' + String(this.seconds) + '秒' + String(this.miliSeconds)
+      } else if (this.seconds !== 0) {
+        return String(this.seconds) + '秒' + String(this.miliSeconds)
+      } else {
+        return 'おそろしく速い手刀。オレでなきゃ見逃しちゃうね'
+      }
     }
   }
 }
@@ -56,5 +76,9 @@ export default {
 <style scoped>
 .text-field {
   margin: 20px;
+}
+.btn {
+  margin-left: 25px;
+  margin-right: 25px;
 }
 </style>

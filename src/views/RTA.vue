@@ -31,7 +31,6 @@ export default {
       nowTime: 0,
       diffTime: 0,
       startTime: 0,
-      timeup: '',
       isRunning: false,
       isStopping: false
     }
@@ -42,26 +41,12 @@ export default {
   methods: {
     openDialog () {
       if (this.isStopping === true) {
-        this.setTime()
+        this.$refs.dlg.hours = this.hours
+        this.$refs.dlg.minutes = this.minutes
+        this.$refs.dlg.seconds = this.seconds
+        this.$refs.dlg.miliSeconds = this.miliSeconds
         this.$refs.dlg.isDialog = !this.$refs.dlg.isDialog
       }
-    },
-    setTime () {
-      this.timeup = ''
-      const hours = this.hours
-      const minutes = this.minutes
-      const seconds = this.seconds
-      const miliSeconds = this.miliSeconds
-      if (hours !== 0) {
-        this.timeup = String(hours) + '時間' + String(minutes) + '分' + String(seconds) + '秒' + String(miliSeconds)
-      } else if (minutes !== 0) {
-        this.timeup = String(minutes) + '分' + String(seconds) + '秒' + String(miliSeconds)
-      } else if (seconds !== 0) {
-        this.timeup = String(seconds) + '秒' + String(miliSeconds)
-      } else {
-        this.timeup = 'おそろしく速い手刀。オレでなきゃ見逃しちゃうね'
-      }
-      this.$refs.dlg.time = this.timeup
     },
     // 現在時刻から引数に渡した数値を startTime に代入
     setSubtractStartTime: function (time) {
