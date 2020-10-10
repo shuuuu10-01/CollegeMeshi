@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Start from '../views/Start.vue'
-import Form from '../views/Form.vue'
+import Result from '../views/Result.vue'
 import RTA from '../views/RTA.vue'
 
 Vue.use(VueRouter)
@@ -13,9 +13,9 @@ const routes = [
     component: Start
   },
   {
-    path: '/form',
-    name: Form,
-    component: Form,
+    path: '/result',
+    name: Result,
+    component: Result,
     props: true
   },
   {

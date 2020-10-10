@@ -34,7 +34,7 @@
           </v-col>
           <v-col cols='10'>
           <v-btn @click="isDialog=false" class="btn">閉じる</v-btn>
-          <v-btn @click="isDialog=false" class="btn">いただきます</v-btn>
+          <v-btn @click="setResult" class="btn">いただきます</v-btn>
           </v-col>
         </v-row>
       </v-card-actions>
@@ -68,6 +68,12 @@ export default {
       } else {
         return 'おそろしく速い手刀。オレでなきゃ見逃しちゃうね'
       }
+    }
+  },
+  methods: {
+    setResult () {
+      console.log('seccess')
+      this.$router.push('/result')
     }
   }
 }
