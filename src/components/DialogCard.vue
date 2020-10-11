@@ -24,6 +24,13 @@
                 label="かかったお金"
                 required
             ></v-select>
+            <v-select
+                class="text-field"
+                v-model="timeframe"
+                :items="['朝食', '昼食', '夕食']"
+                label="時間帯"
+                required
+            ></v-select>
             <v-text-field
               class="text-field"
               label="タイム"
@@ -49,6 +56,7 @@ export default {
       title: '',
       introduce: '',
       cost: '',
+      timeframe: '',
       hours: 0,
       minutes: 0,
       seconds: 0,
