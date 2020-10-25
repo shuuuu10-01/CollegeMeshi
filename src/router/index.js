@@ -7,6 +7,7 @@ import About from '../views/About.vue'
 import Home from '../views/Home.vue'
 import Top from '../views/Top.vue'
 import MyPage from '../views/MyPage.vue'
+import Search from '../views/Search.vue'
 
 Vue.use(VueRouter)
 
@@ -46,6 +47,11 @@ const routes = [
     path: '/mypage',
     name: MyPage,
     component: MyPage
+  },
+  {
+    path: '/search',
+    name: Search,
+    component: Search
   }
 ]
 

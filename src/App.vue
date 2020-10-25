@@ -39,6 +39,7 @@ export default {
       lists: [
         { name: 'トップページ', icon: 'mdi-view-dashboard', link: '/' },
         { name: 'マイページ', icon: 'mdi-account', link: '/mypage' },
+        { name: '料理を探す', icon: 'mdi-food', link: '/search' },
         { name: 'RTAタイマー', icon: 'mdi-clock', link: '/rta' },
         { name: 'アプリ説明', icon: 'mdi-information-outline', link: '/about' }
       ]
