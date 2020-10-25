@@ -3,14 +3,28 @@ import VueRouter from 'vue-router'
 import Start from '../views/Start.vue'
 import Result from '../views/Result.vue'
 import RTA from '../views/RTA.vue'
+import About from '../views/About.vue'
+import Home from '../views/Home.vue'
+import Top from '../views/Top.vue'
+import MyPage from '../views/MyPage.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Start',
-    component: Start
+    name: 'top',
+    component: Top
+  },
+  {
+    path: '/home',
+    name: 'home',
+    component: Home
+  },
+  {
+    path: '/about',
+    name: 'About',
+    component: About
   },
   {
     path: '/result',
@@ -22,6 +36,16 @@ const routes = [
     path: '/rta',
     name: RTA,
     component: RTA
+  },
+  {
+    path: '/start',
+    name: Start,
+    component: Start
+  },
+  {
+    path: '/mypage',
+    name: MyPage,
+    component: MyPage
   }
 ]
 
