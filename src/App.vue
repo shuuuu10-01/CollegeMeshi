@@ -11,12 +11,12 @@
         </v-list-item>
         <v-divider></v-divider>
         <v-list nav>
-          <v-list-item v-for="ani_list in ani_lists"  :key="ani_list.name" :to="ani_list.link">
+          <v-list-item v-for="list in lists"  :key="list.name" :to="list.link">
             <v-list-item-icon>
-              <v-icon>{{ ani_list.icon }}</v-icon>
+              <v-icon>{{ list.icon }}</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>{{ ani_list.name }}</v-list-item-title>
+              <v-list-item-title>{{ list.name }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -36,7 +36,7 @@ export default {
   data () {
     return {
       drawer: null,
-      ani_lists: [
+      lists: [
         { name: 'トップページ', icon: 'mdi-view-dashboard', link: '/' },
         { name: 'マイページ', icon: 'mdi-account', link: '/mypage' },
         { name: 'RTAタイマー', icon: 'mdi-clock', link: '/rta' },
