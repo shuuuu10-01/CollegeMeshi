@@ -23,6 +23,9 @@
     <v-app-bar color="primary" dark app>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title class="title center">（タイトル）</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn depressed @click="signin" color="primary">サインイン</v-btn>
+      <v-btn depressed @click="signup" color="primary">サインアップ</v-btn>
     </v-app-bar>
   </div>
 </template>
@@ -39,6 +42,14 @@ export default {
         { name: 'RTAタイマー', icon: 'mdi-clock', link: '/rta' },
         { name: 'アプリ説明', icon: 'mdi-information-outline', link: '/about' }
       ]
+    }
+  },
+  methods: {
+    signin () {
+      this.$router.push('/signin')
+    },
+    signup () {
+      this.$router.push('/signup')
     }
   }
 }

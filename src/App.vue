@@ -1,17 +1,19 @@
 <template>
   <v-app id="app">
-    <v-header />
-    <router-view />
+    <VHeader />
+    <v-main id="main">
+      <router-view />
+    </v-main>
   </v-app>
 </template>
 
 <script>
-import VHeader from "./components/VHeader.vue";
+import VHeader from './components/VHeader.vue'
 export default {
   components: {
     VHeader
   }
-};
+}
 </script>
 
 <style>
@@ -29,10 +31,18 @@ export default {
 
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #2c503f;
 }
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+#main {
+  /* background: url("assets/XXXXX.png"); */
+  background-size: cover;
+  background-position: center;
+  width: auto;
+  height: auto;
 }
 </style>

@@ -4,7 +4,9 @@
       <v-col>
         <img alt="logo" src="../assets/logo.png" class="image">
         <br/>
-        <v-btn @click="start">スタート</v-btn>
+        <h1>自炊RTA</h1>
+        <v-btn @click="signin" class="ma-5">サインイン</v-btn>
+        <v-btn @click="signup" class="ma-5">サインアップ</v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -13,8 +15,11 @@
 <script>
 export default {
   methods: {
-    start () {
-      this.$router.push('/rta')
+    signin () {
+      this.$router.push('/signin')
+    },
+    signup () {
+      this.$router.push('/signup')
     }
   }
 }
