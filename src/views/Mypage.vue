@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import UserCard from '../components/User/_UserCard.vue'
+import UserCard from '../components/Mypage/_UserCard.vue'
 
 export default {
   data () {
