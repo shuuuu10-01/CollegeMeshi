@@ -1,8 +1,18 @@
 <template>
   <v-app id="app">
-    <router-view/>
+    <v-header />
+    <router-view />
   </v-app>
 </template>
+
+<script>
+import VHeader from "./components/VHeader.vue";
+export default {
+  components: {
+    VHeader
+  }
+};
+</script>
 
 <style>
 #app {
