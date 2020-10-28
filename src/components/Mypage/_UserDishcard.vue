@@ -1,0 +1,24 @@
+<template>
+  <div>
+    <UserDialog ref="dlg" image="image"/>
+    <v-btn @click="openDialog" class="mt-5">仮カード</v-btn>
+  </div>
+</template>
+
+<script>
+import UserDialog from './__UserDialog.vue'
+export default {
+  methods: {
+    openDialog () {
+      this.$refs.dlg.isDialog = true
+      this.$refs.dlg.image = this.image
+    }
+  },
+  components: {
+    UserDialog
+  },
+  props: {
+    image: String
+  }
+}
+</script>
