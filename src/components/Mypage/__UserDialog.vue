@@ -72,7 +72,7 @@ export default {
 
 <style scoped>
 li {
-  white-space: pre-wrap;
+  white-space: pre-wrap;/* \nで改行してくれる*/
 }
 v-btn {
   margin: auto;
